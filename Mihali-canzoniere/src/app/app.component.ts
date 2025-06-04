@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,28 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Mihali-canzoniere';
+  loading! : boolean
+  obs! : Observable<object>
+  data!: object
+  http: HttpClient
+  
+  constructor(http: HttpClient){this.http = http}
+  
+  makeChiamta(){
+    this.loading = true
+    this.obs = this.http.get('https://my-json-server.typicode.com/malizia-g/hotel/short-songlist')
+    this.obs.subscribe(this.getData)
+  }
+
+  getData = (d : object)=>{
+    this.data = d
+    this.loading = false
+    console.log(this.data)
+  }
+
+  ngOnInit(): void {
+    this.makeChiamta()
+  }
 }
