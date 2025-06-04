@@ -2,11 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Song } from './Models/song.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -16,6 +18,7 @@ export class AppComponent implements OnInit{
   obs! : Observable<object>
   data!: object
   http: HttpClient
+  vettSong: Song [] = []
   
   constructor(http: HttpClient){this.http = http}
   
@@ -25,7 +28,7 @@ export class AppComponent implements OnInit{
     this.obs.subscribe(this.getData)
   }
 
-  getData = (d : object)=>{
+  getData = (d : object )=>{
     this.data = d
     this.loading = false
     console.log(this.data)
