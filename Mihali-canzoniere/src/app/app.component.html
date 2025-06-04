@@ -1,4 +1,7 @@
 @for(can of vettSong; track can){
-  <app-song-list [canz]="can"></app-song-list>
+  <app-song-list [canz]="can" [dets]="vettDett"></app-song-list>
+}
 
+@for(det of vettDett; track det){
+  <app-dettagli-album [detag]="det"></app-dettagli-album>
 }
